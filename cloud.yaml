@@ -1,0 +1,48 @@
+  alexa:
+    filter:
+      exclude_entities:
+        - group.garage
+        - group.all_automations
+        - group.all_devices
+        - cover.kitchen_right_blinds
+        - group.all_lights
+        - group.all_locks
+        - group.all_covers
+        - group.covers
+      # - group.blinds
+        - switch.all_blinds
+        - cover.kitchen_left_blinds
+        - cover.living_room_blinds
+        - group.phones
+        - group.all_scripts
+        - group.all_switches
+        - switch.kitchen_blinds
+        - switch.living_room_blinds
+        - group.bunker
+        - sensor.octoprint_target_bed_temp
+        - group.all_covers
+        - group.garage
+        - group.kitchen
+        - sensor.octoprint_actual_tool0_temp
+        - sensor.dark_sky_temperature
+        - sensor.octoprint_target_tool0_temp
+        - sensor.octoprint_actual_bed_temp
+        - cover.kitchen_left_cover
+        - sensor.dark_sky_apparent_temperature
+        - group.street
+        - group.terrace
+        - group.power_consumption
+        - group.bunker_computers
+        - group.second_floor
+        - group.bunker_sensors
+        - group.garage_sensors
+        - group.forecast
+        - group.street_sensors
+        - group.street_door
+        - group.3d_printer
+        - group.living_room
+        - group.street_mailbox
+        - group.default_view
+      exclude_domains:
+        - script
+        - automation

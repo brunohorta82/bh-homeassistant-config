@@ -1,0 +1,128 @@
+switch.bhonofre91130a_1:
+  friendly_name: Bunker Light
+sensor.emoncms_nodepzempotencia:
+  friendly_name: Power
+  icon: mdi:power-plug
+sensor.emoncms_nodepzemtemperature:
+  friendly_name: Temperature
+  icon: mdi:temperature-celsius
+  unit_of_measurement: ºC
+sensor.emoncms_nodepzemamperagem:
+  friendly_name: Amperage
+  icon: mdi:power-plug
+  unit_of_measurement: A
+sensor.emoncms_nodepzemvoltagem:
+  friendly_name: Voltage
+  icon: mdi:power-plug
+  unit_of_measurement: V
+sensor.emoncms_nodepzemenergia:
+  hidden: true
+sensor.emoncms_pot_kwhdia:
+  friendly_name: Cumulate Day
+  unit_of_measurement: kWh
+sensor.emoncms_pot_kwh:
+  friendly_name: Cumulate
+  icon: mdi:calendar-range
+  unit_of_measurement: kWh
+switch.living_room_blinds:
+  hidden: true
+group.all_lights:
+  friendly_name: All lights
+  icon: mdi:lightbulb
+scene.all_blinds_close:
+  friendly_name: All Blinds Close
+  icon: mdi:blinds
+sensor.mailbox:
+  friendly_name: Mail
+  icon: mdi:mailbox
+scene.all_lights_off:
+  icon: mdi:lightbulb-outline
+light.bhonofre91130a_1:
+  friendly_name: Bunker Light
+device_tracker.iphonebruno:
+  icon: mdi:human-male
+device_tracker.iphonedeana:
+  icon: mdi:human-female
+sensor.mailbox_door:
+  friendly_name: Port
+  icon: mdi:door
+sensor.mail_checked_on:
+  friendly_name: Checked On
+  icon: mdi:calendar-multiple-check
+sensor.last_mail_receive_on:
+  friendly_name: Last Mail On
+  icon: mdi:email-alert
+cover.kitchen_left_blinds:
+  icon: mdi:blinds
+cover.kitchen_right_blinds:
+  icon: mdi:blinds
+cover.living_room_blinds:
+  icon: mdi:blinds
+media_player.mediaroom_19216818611:
+  friendly_name: Smarbox
+  icon: mdi:table-row
+switch.tv_lg:
+  friendly_name: TV
+  icon: mdi:television
+switch.lg_sound_system:
+  friendly_name: Sound System
+  icon: mdi:speaker
+switch.hdmi_two:
+  icon: mdi:video-input-hdmi
+switch.hdmi_three:
+  icon: mdi:mdi:video-input-hdmi
+switch.hdmi_one:
+  icon: mdi:mdi:video-input-hdmi
+media_player.tv:
+  icon: mdi:television
+media_player.sound_system:
+  icon: mdi:speaker
+switch.icepc:
+  icon: mdi:desktop-tower
+sensor.bunker_humidity:
+  friendly_name: Bunker Humidity
+  icon: mdi:water-percent
+sensor.garage_humidity:
+  icon: mdi:water-percent
+sensor.street_humidity:
+  friendly_name: Street Humidity
+  icon: mdi:water-percent
+sensor.street_lightbulb:
+  friendly_name: Street Lux
+  icon: mdi:theme-light-dark
+sensor.street_temperature:
+  friendly_name: Street Temperature
+group.3d_printer: {}
+sensor.bunker_lightbulb:
+  friendly_name: Bunker Lux
+  icon: mdi:theme-light-dark
+media_player.apple_tv:
+  icon: mdi:apple
+sensor.garage_lightbulb:
+  icon: mdi:theme-light-dark
+sensor.emoncms_por_kwh:
+  friendly_name: C Cumulate
+  icon: mdi:calendar-range
+  unit_of_measurement: kWh
+sensor.emoncms_nodepzemsolaramperagem:
+  friendly_name: Solar Amperage
+  icon: mdi:power-plug-off
+  unit_of_measurement: A
+sensor.emoncms_nodepzemsolartemperature:
+  friendly_name: Solar Temperature
+  icon: mdi:temperature-celsius
+  unit_of_measurement: ºC
+sensor.emoncms_prod_kwh:
+  friendly_name: Production
+  icon: mdi:calendar-range
+  unit_of_measurement: kWh
+sensor.emoncms_nodepzemsolarpotencia:
+  friendly_name: Solar Power
+  icon: mdi:power-plug-off
+sensor.emoncms_nodepzemsolarvoltagem:
+  friendly_name: Solar Voltage
+  icon: mdi:power-plug-off
+light.bunkerstairs_1:
+  friendly_name: Bunker Cabinet
+light.bunkerstairs_0:
+  friendly_name: Bunker Stairs

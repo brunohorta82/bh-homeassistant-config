@@ -1,0 +1,5 @@
+  - platform: ring
+  - platform: octoprint
+    monitored_conditions:
+      - Printing
+      - Printing Error

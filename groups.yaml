@@ -1,0 +1,217 @@
+dash:
+  view: true
+  icon: mdi:home
+  entities:
+    - group.power_consumption
+    - group.phones
+    - scene.kids_sleep
+    - scene.leave_home
+    - scene.living_room_normal
+    - scene.relax
+    - scene.second_floor_normal
+    - scene.all_lights_off
+    - scene.all_blinds_close
+    - device_tracker.iphonebruno
+    - device_tracker.iphonedeana
+    - group.forecast
+    - group.blinds
+    - group.first_floor_lights
+    - group.all_lights
+street:
+  view: true    
+  name: Street
+  entities:
+    - sensor.mailbox
+    - sensor.mailbox_receive
+    - sensor.mailbox_checked
+    - sensor.mailbox_door
+    - light.front_door
+    - group.street_mailbox
+    - group.street_door
+    - group.street_sensors
+master_room:
+  view: true
+  name: Master Room
+  entities:
+    - climate.air_conditioner    
+living_room:
+  view: true
+  name: Living Room
+  entities:
+    - media_player.apple_tv
+    - cover.living_room_blinds
+    - sensor.cover_living_room_state
+    - light.living_room_center
+    - light.dinner_table
+    - switch.hdmi_one
+    - switch.hdmi_two
+    - switch.hdmi_three
+    - media_player.mediaroom_19216818611
+    - media_player.tv
+    - media_player.sound_system
+    - switch.media_devices
+kitchen:
+  view: true
+  name: Kitchen
+  entities:
+    - cover.kitchen_left_blinds    
+    - cover.kitchen_right_blinds
+    - light.kitchen_bench
+    - light.kitchen_table
+second_floor:
+  view: true
+  name: Second Floor
+  entities:
+    - light.second_floor_light
+bunker:
+  name: Bunker
+  view: true
+  entities:
+    - light.bhonofre91130a_1
+    - sensor.social_youtube
+    - light.bunkerstairs_0
+    - light.bunkerstairs_1
+    - group.bunker_sensors
+    - group.bunker_computers 
+    - group.3d_printer
+    - media_player.plex_web_safari
+terrace:
+  view: true
+  name: Terrace
+  entities:
+    - light.terrace 
+
+forecast:
+  name: Forecast
+  entities:
+    - sensor.dark_sky_apparent_temperature
+    - sensor.dark_sky_humidity
+    - sensor.dark_sky_icon
+   #- sensor.dark_sky_nearest_storm_distance
+   #- sensor.dark_sky_precip_intensity
+   #- sensor.dark_sky_precip_probability
+   #- sensor.dark_sky_pressure
+   #- sensor.dark_sky_summary
+   #- sensor.dark_sky_temperature
+   #- sensor.dark_sky_wind_bearing
+   #- sensor.dark_sky_wind_speed
+
+power_consumption:
+  name: Power
+  entities:
+    - sensor.emoncms_nodepzemamperagem
+    - sensor.emoncms_nodepzemenergia
+    - sensor.emoncms_nodepzempotencia
+    - sensor.emoncms_nodepzemtemperature
+    - sensor.emoncms_nodepzemvoltagem
+    - history_graph.electrical_consumption
+3d_printer:
+  name: 3D Printer
+  entities:
+    - binary_sensor.octoprint_printing_error
+    - binary_sensor.octoprint_printing
+    - sensor.octoprint_actual_bed_temp
+    - sensor.octoprint_actual_tool0_temp
+    - sensor.octoprint_current_state 
+    - sensor.octoprint_job_percentage 
+    - sensor.octoprint_target_bed_temp  
+    - sensor.octoprint_target_tool0_temp
+    - camera.3d_printer
+bunker_computers:
+  name: Computers
+  entities:
+    - switch.icepc
+bunker_sensors:
+  name: Sensors
+  entities:
+    - sensor.bunker_temperature
+    - sensor.bunker_humidity
+    - sensor.bunker_lightbulb
+    - sensor.speedtest_download
+    - sensor.speedtest_ping
+    - sensor.speedtest_upload
+garage_sensors: 
+  name: Sensors
+  entities:
+    - sensor.garage_temperature
+    - sensor.garage_humidity
+    - sensor.garage_lightbulb
+garage:
+  view: true    
+  name: Garage
+  entities:
+    - camera.garage
+    - lock.garage_gate
+    - group.garage_sensors
+    - light.outside
+    - light.bottom
+    - light.garage_stairs
+street_mailbox:
+  name: Mailbox
+  entities:
+    - sensor.mailbox
+    - sensor.last_mail_receive_on
+    - sensor.mail_checked_on
+    - sensor.mailbox_door
+street_sensors:
+  name: Sensors
+  entities:
+    - sensor.street_temperature
+    - sensor.street_humidity
+    - sensor.street_lightbulb
+    - sensor.ring_front_door_battery
+    - sensor.ring_front_door_last_activity
+    - sensor.ring_front_door_last_ding
+    - sensor.ring_front_door_last_motion
+    - sensor.ring_front_door_volume
+    - sensor.ring_front_door_wifi_signal_category
+    - sensor.ring_front_door_wifi_signal_strength
+street_door:
+  name: Entrance
+  entities:
+    - sensor.front_door 
+    - lock.outdoor_gate
+
+
+phones:
+  name: Phones
+  entities:
+    - sensor.iphone_de_ana_battery_state
+    - sensor.iphone_de_ana_battery_level
+    - sensor.iphone_bruno_battery_state
+    - sensor.iphone_bruno_battery_level
+    - sensor.ipad_de_ana_battery_state
+    - sensor.ipad_de_ana_battery_level
+blinds:
+  name: Blinds
+  entities:
+    - cover.kitchen_right_blinds
+    - cover.kitchen_left_blinds
+    - cover.living_room_blinds
+    - switch.all_blinds
+blinds_kitchen:
+  name: Kitchen Blinds
+  entities:
+    - cover.kitchen_right_blinds
+    - cover.kitchen_left_blinds
+    - switch.kitchen_blinds
+living_room_kitchen:
+  name: Living Room Blinds
+  entities:
+    - cover.living_room_blinds
+    - switch.living_room_blinds
+kitchen_lights:
+  name: Kitchen Lights
+  entities:
+    - light.kitchen_bench
+    - light.kitchen_table
+living_room_lights:
+  name: Living Room Lights
+  entities:
+    - light.living_room_center
+    - light.dinner_table
+first_floor_lights:
+  name: First Floor Lights
+  entities:
+    - group.living_room_lights
+    - group.kitchen_lights

@@ -1,0 +1,11 @@
+  - platform: ring
+  - platform: generic
+    name: Garage
+    still_image_url: !secret cam_garage_still_image_url
+    username: !secret cam_garage_username
+    password: !secret cam_garage_password
+  - platform: generic
+    name: 3D Printer
+    still_image_url: !secret cam_3d_still_image_url
+    username: !secret cam_3d_username
+    password: !secret cam_3d_password

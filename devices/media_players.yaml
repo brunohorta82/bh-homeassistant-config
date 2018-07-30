@@ -1,0 +1,13 @@
+  - platform: mediaroom
+    name: Smart Box
+    host: !secret smart_box_host
+  - platform: broadlink
+    name: TV 
+    host: !secret broadlink_tv_host
+    mac: !secret broadlink_tv_mac
+    ircodes_ini: 'broadlink_media_codes/lg.ini'
+  - platform: broadlink
+    name: Sound System
+    host: !secret broadlink_tv_host
+    mac: !secret broadlink_tv_mac
+    ircodes_ini: 'broadlink_media_codes/lg_sound.ini'

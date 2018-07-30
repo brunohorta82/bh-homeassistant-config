@@ -1,0 +1,18 @@
+  - platform: mqtt
+    name: Garage Gate
+    state_topic: "home-assistant/garagedoor"
+    command_topic: "home-assistant/garagedoor/set"
+    payload_lock: "LOCK"
+    payload_unlock: "UNLOCK"
+    optimistic: false
+    qos: 0
+    retain: false
+  - platform: mqtt
+    name: Outdoor Gate
+    state_topic: "home-assistant/streetdoor"
+    command_topic: "home-assistant/streetdoor/set"
+    payload_lock: "LOCK"
+    payload_unlock: "UNLOCK"
+    optimistic: false
+    qos: 0
+    retain: false

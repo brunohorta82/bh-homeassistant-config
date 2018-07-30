@@ -1,0 +1,112 @@
+name: Horta's Home
+resources:
+  - url: /local/content-card-sensors.js
+    type: js
+views:
+    # The name of a view will be used as tab title.
+    # Might be used for other things in the future.
+  - icon: mdi:view-dashboard
+    id: Dashbord
+    cards:
+      - type: picture-glance
+        image: https://hips.hearstapps.com/hbu.h-cdn.co/assets/16/24/3200x1600/landscape-hbx060116prentice03-1.jpg?resize=768:*
+        # Title of the entities card
+        title: Home
+        # The entities here will be shown in the same order as specified.
+        entities:
+          - lock.garage_gate
+          - sensor.mailbox
+          - scene.all_lights_off
+          - scene.all_blinds_close
+          - device_tracker.iphonebruno
+          - device_tracker.iphonedeana
+      - type: glance
+        title: Power Consuption
+        entities:
+          - sensor.emoncms_nodepzempotencia
+          - sensor.emoncms_nodepzemamperagem
+          - sensor.emoncms_nodepzemvoltagem
+          - sensor.emoncms_por_kwh
+          - sensor.emoncms_nodepzemtemperature
+          - sensor.emoncms_nodepzemsolarpotencia
+          - sensor.emoncms_nodepzemsolaramperagem
+          - sensor.emoncms_nodepzemsolarvoltagem
+          - sensor.emoncms_prod_kwh
+          - sensor.emoncms_nodepzemsolartemperature
+      - type: entity-filter
+        entities:
+          - light.bhonofre91130a_0
+          - light.bhonofre91130a_1
+          - light.bottom
+          - light.bunker_stairs
+          - light.dinner_table
+          - light.front_door
+          - light.garage_stairs
+          - light.kitchen_bench
+          - light.kitchen_table
+          - light.living_room_center
+          - light.outside
+          - light.second_floor_light
+          - light.terrace
+        state_filter:
+          - 'on'
+        card:
+          title: Devices On
+      - type: entity-filter
+        entities:
+          - cover.kitchen_left_blinds
+          - cover.kitchen_right_blinds
+          - cover.living_room_blinds
+        state_filter:
+          - 'open'
+        card:
+          title: Windows Open
+    # Name of the view. Will be used as the tooltip for tab icon
+  - icon: mdi:home-assistant
+    id: Second view
+    cards:
+      - type: glance
+        title: Mailbox
+        entities:
+          - sensor.mailbox
+          - sensor.last_mail_receive_on
+          - sensor.mail_checked_on
+          - sensor.mailbox_door
+      - type: glance
+        title: Media
+        entities:
+          - media_player.tv
+          - media_player.sound_system
+          - media_player.mediaroom_19216818611
+          - media_player.apple_tv         
+          - switch.hdmi_one
+          - switch.hdmi_two
+          - switch.hdmi_three
+      - type: picture-glance
+        camera_image: camera.garage
+        title: Garage
+        entities:
+          - lock.garage_gate
+          - light.outside
+          - light.bottom
+          - light.garage_stairs
+          - sensor.garage_temperature
+          - sensor.garage_humidity
+          - sensor.garage_lightbulb
+      
+      - type: picture-glance
+        image: https://s3-eu-west-1.amazonaws.com/howdens-howden-prod/web_content/content/image/7026-13831-3.jpg
+        title: Kitchen
+        entities:
+          - cover.kitchen_left_blinds    
+          - cover.kitchen_right_blinds
+          - light.kitchen_bench
+          - light.kitchen_table
+      
+      - type: picture-glance
+        image: https://hips.hearstapps.com/hbu.h-cdn.co/assets/16/24/3200x1600/landscape-hbx060116prentice03-1.jpg?resize=768:*
+        title: Living Room
+        entities:
+          - cover.living_room_blinds
+          - light.living_room_center
+          - light.dinner_table

@@ -1,0 +1,28 @@
+
+  - platform: mqtt
+    name: "Living Room Blinds"
+    state_topic: "home-assistant/livingroom/window"
+    command_topic: "home-assistant/livingroom/window/set"
+    payload_open: "OPEN"
+    payload_close: "CLOSE"
+    payload_stop: "STOP"
+    state_open: "OPEN"
+    state_closed: "CLOSE"
+  - platform: mqtt
+    name: "Kitchen Left Blinds"
+    state_topic: "home-assistant/kitchen/window/left"
+    command_topic: "home-assistant/kitchen/window/left/set"
+    payload_open: "OPEN"
+    payload_close: "CLOSE"
+    payload_stop: "STOP"
+    state_open: "OPEN"
+    state_closed: "CLOSE"
+  - platform: mqtt
+    name: "Kitchen Right Blinds"
+    state_topic: "home-assistant/kitchen/window/right"
+    command_topic: "home-assistant/kitchen/window/right/set"
+    payload_open: "OPEN"
+    payload_close: "CLOSE"
+    payload_stop: "STOP"
+    state_open: "OPEN"
+    state_closed: "CLOSE"

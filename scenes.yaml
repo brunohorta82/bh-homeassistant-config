@@ -1,0 +1,36 @@
+  - name: All Lights Off
+    entities:
+      group.all_lights: off
+  - name: All Blinds Close
+    entities:
+      group.all_covers: close    
+  - name: Relax
+    entities:
+      light.dinner_table: on
+      light.living_room_center:
+        state: on
+        brightness: 40      
+  - name: Living Room Normal
+    entities:
+      light.dinner_table: on
+      light.living_room_center:
+        state: on
+        brightness: 255
+  - name: Second Floor Normal
+    entities:
+      light.second_floor_light:
+        state: on
+        brightness: 255
+        color_temp: 175
+      light.bunker_stairs: on
+  - name: Kids Sleep
+    entities:
+      light.second_floor_light:
+        state: on
+        brightness: 17
+        color_temp: 333
+      light.bunker_stairs: off        
+  - name: Leave Home
+    entities:
+      switch.all_blinds: off
+      group.all_lights: off

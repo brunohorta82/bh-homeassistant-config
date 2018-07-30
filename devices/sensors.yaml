@@ -1,0 +1,88 @@
+
+  - platform: ring
+  - platform: darksky
+    api_key: !secret darksky_api_key
+    monitored_conditions:
+      - summary
+      - icon
+      - nearest_storm_distance
+      - temperature
+      - apparent_temperature
+      - humidity
+      - precip_probability
+      - wind_bearing
+      - pressure
+      - wind_speed
+      - precip_intensity
+  - platform: mqtt
+    state_topic: 'bhhome/bunker/sensor/temperature'
+    name: 'Bunker Temperature'
+    unit_of_measurement: '°C'
+  - platform: mqtt
+    state_topic: 'bhhome/street/sensor/mailBoxSensor/mailbox/temperature/state'
+    name: 'Street Temperature'
+    unit_of_measurement: '°C'  
+  - platform: mqtt
+    state_topic: 'garage/sensor/temperature'
+    name: 'Garage Temperature'
+    unit_of_measurement: '°C'  
+  - platform: mqtt
+    state_topic: 'bhhome/street/sensor/mailBoxSensor/mailbox/hasMail/state'
+    name: 'Mailbox'
+  - platform: mqtt
+    state_topic: 'bhhome/street/sensor/mailBoxSensor/mailbox/lastIn/state'
+    name: 'Last Mail Receive On'
+  - platform: mqtt
+    state_topic: 'bhhome/street/sensor/mailBoxSensor/mailbox/lastCheck/state'
+    name: 'Mail Checked On'
+  - platform: mqtt
+    state_topic: 'bhhome/street/sensor/mailBoxSensor/mailboxDoor/position/state'
+    name: 'Mailbox Door'
+  - platform: mqtt
+    state_topic: 'bhhome/street/sensor/mailBoxSensor/outFrontDoor/position/state'
+    name: 'Front Door'
+  - platform: mqtt
+    state_topic: 'bhhome/bunker/sensor/humidity'
+    name: 'Bunker Humidity'
+    unit_of_measurement: '%'
+  - platform: mqtt
+    state_topic: 'bhhome/street/sensor/mailBoxSensor/mailbox/humidity/state'
+    name: 'Street Humidity'
+  - platform: mqtt
+    state_topic: 'garage/sensor/humidity'
+    name: 'Garage Humidity'
+    unit_of_measurement: '%'  
+  - platform: mqtt
+    state_topic: 'bhhome/bunker/sensor/ldr'
+    name: 'Bunker Lightbulb'
+    value_template: '{{ float(value) }}'
+    unit_of_measurement: 'lux'
+  - platform: mqtt
+    state_topic: 'bhhome/street/sensor/mailBoxSensor/mailbox/ldr/state'
+    name: 'Street Lightbulb'
+    value_template: '{{ float(value) }}'
+    unit_of_measurement: 'lux'  
+  - platform: mqtt
+    state_topic: 'garage/sensor/ldr'
+    name: 'Garage Lightbulb'
+    value_template: '{{ float(value) }}'
+    unit_of_measurement: 'lux'  
+  - platform: mqtt
+    state_topic: 'bhhome/social/youtube/suscribers'
+    name: 'Social Youtube'
+    unit_of_measurement: 'pl'
+  - platform: speedtest
+    monitored_conditions:
+      - ping
+      - download
+      - upload
+  - platform: emoncms
+    api_key: !secret emoncms_api_key
+    url: !secret emoncms_url
+    id: 1
+  - platform: octoprint
+    name: OctoPrint
+    monitored_conditions:
+      - Current State
+      - Temperatures
+      - Job Percentage

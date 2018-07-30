@@ -1,0 +1,145 @@
+- action:
+  - alias: push_ios
+    data:
+      message: You Got Mail
+    service: notify.ios
+  alias: Mail Notification
+  condition: []
+  id: '1502819401171'
+  trigger:
+  - entity_id: sensor.mailbox
+    from: 'No'
+    platform: state
+    to: 'Yes'
+- id: '1502832792621'
+  alias: Auto Close Blinds
+  trigger:
+  - at: '21:00'
+    platform: time
+  condition: []
+  action:
+  - alias: close_all_blinds_at_time
+    data: {}
+    service: cover.close_cover
+- action:
+  - alias: open_all_blinds_at_time
+    service: cover.open_cover
+  alias: Auto Open Blinds
+  condition: []
+  id: '1502835215956'
+  trigger:
+  - at: '9:00'
+    platform: time
+- action:
+  - alias: turn_on_garage_lights
+    data:
+      entity_id: light.outside
+    service: light.turn_on
+  - alias: turn_on_garage_bottom_lights
+    data:
+      entity_id: light.bottom
+    service: light.turn_on
+  - alias: turn on garage stairs
+    data:
+      entity_id: light.garage_stairs
+    service: light.turn_on
+  alias: Garage Lights
+  condition:
+  - above: '0.0'
+    below: '5.0'
+    condition: numeric_state
+    entity_id: sensor.garage_lightbulb
+    value_template: '{{ states.sensor.garage_lightbulb.state | int }}'
+  id: '1503009748042'
+  trigger:
+  - entity_id: lock.garage_gate
+    from: locked
+    platform: state
+    to: unlocked
+- action:
+  - alias: Turn Off Outside Garage Light
+    data:
+      entity_id: light.outside
+    service: light.turn_off
+  - alias: Turn Off Bottom Garage Light
+    data:
+      entity_id: light.bottom
+    service: light.turn_off
+  alias: Auto Turn Off Lights
+  condition: []
+  id: '1503012232085'
+  trigger:
+  - entity_id: lock.garage_gate
+    for:
+      minutes: 3
+    from: unlocked
+    platform: state
+    to: locked
+- action:
+  - alias: Turn Off
+    data:
+      entity_id: light.garage_stairs
+    service: light.turn_off
+  alias: Auto Turn On Garage Light Stairs
+  condition: []
+  id: '1504910595802'
+  trigger:
+  - entity_id: light.garage_stairs
+    for:
+      minutes: 3
+    from: 'off'
+    platform: state
+    to: 'on'
+- action:
+  - data:
+      entity_id: light.living_room_center
+    service: homeassistant.toggle
+  alias: LivingRoomCenterLightToogle
+  condition: []
+  id: '1516471952972'
+  trigger:
+  - platform: mqtt
+    topic: bhhome/livingroom/center/light/status
+- action:
+  - data:
+      entity_id: light.second_floor_light
+    service: homeassistant.toggle
+  alias: SecondFloorLightToogle
+  condition: []
+  id: '1523120667872'
+  trigger:
+  - platform: mqtt
+    topic: bhhome/second_floor/light/set
+- action:
+  - data:
+      entity_id: light.front_door
+    service: light.turn_off
+  alias: Auto Turn Off Front Light
+  condition: []
+  id: '1524520848747'
+  trigger:
+  - entity_id: light.front_door
+    for:
+      minutes: 2
+    from: 'off'
+    platform: state
+    to: 'on'
+- id: '1527013467454'
+  alias: TurnOnFrontDoorLight
+  trigger:
+  - entity_id: sensor.front_door
+    from: CLOSED
+    platform: state
+    to: OPEN
+  - entity_id: binary_sensor.ring_front_door_ding
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition:
+  - below: '25'
+    condition: numeric_state
+    entity_id: sensor.street_lightbulb
+  action:
+  - data:
+      entity_id: light.front_door
+    service: light.turn_on
