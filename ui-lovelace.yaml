@@ -1,112 +1,340 @@
-name: Horta's Home
+title: Horta's Home
 resources:
-  - url: /local/content-card-sensors.js
+  - url: /local/kiosk.js
+    type: js
+  - url: /local/gauge-card.js?v=1
     type: js
 views:
-    # The name of a view will be used as tab title.
-    # Might be used for other things in the future.
   - icon: mdi:view-dashboard
-    id: Dashbord
+    id: Bunker_Dashbord
     cards:
       - type: picture-glance
-        image: https://hips.hearstapps.com/hbu.h-cdn.co/assets/16/24/3200x1600/landscape-hbx060116prentice03-1.jpg?resize=768:*
-        # Title of the entities card
-        title: Home
-        # The entities here will be shown in the same order as specified.
+        title: Bunker
+        entity: camera.3d_printer
+        camera_image: camera.3d_printer
+        show_info: true
+        tap_action: dialog
         entities:
-          - lock.garage_gate
-          - sensor.mailbox
+          - light.bunker
+          - light.secretary
+          - light.bunker_closet
+          - light.bunker_studio
+          - light.bunker_stairs
+          - switch.3d_printer
+      - type: vertical-stack 
+        cards:
+          - type: entity-filter
+            entities:
+              - entity: light.bottom
+                tap_action: toggle
+              - entity: light.bunker
+                tap_action: toggle
+              - entity: light.bunker_closet
+                tap_action: toggle
+              - entity: light.bunker_stairs
+                tap_action: toggle
+              - entity: light.bunker_studio
+                tap_action: toggle
+              - entity: light.dinner_table
+                tap_action: toggle
+              - entity: light.front_door
+                tap_action: toggle
+              - entity: light.garage_stairs
+                tap_action: toggle
+              - entity: light.interrutor1
+                tap_action: toggle
+              - entity: light.interrutor2
+                tap_action: toggle
+              - entity: light.kitchen_bench
+                name: Bench
+                tap_action: toggle
+              - entity: light.kitchen_table
+                name: Kitchen
+                tap_action: toggle
+              - entity: light.living_room_center
+                tap_action: toggle
+              - entity: light.outside
+                tap_action: toggle
+              - entity: light.second_floor_light
+                name: 2º Floor
+                tap_action: toggle
+              - entity: light.secretary
+                tap_action: toggle
+              - entity: light.terrace
+                tap_action: toggle
+              - entity: light.wc
+                tap_action: toggle
+              - entity: light.bhonofre_garagestairs_relay_1
+                tap_action: toggle
+              - entity: light.bhonofre_garagestairs_relay_2
+                tap_action: toggle
+              - entity: switch.icepc
+                tap_action: toggle
+              - entity: cover.kitchen_left_blinds
+                tap_action: toggle
+                name: Kitchen L
+              - entity: cover.kitchen_right_blinds
+                tap_action: toggle
+                name: Kitchen R
+              - entity: cover.living_room_blinds
+                tap_action: toggle
+              - media_player.mediaroom_19216818611
+              - media_player.tv
+              - media_player.sound_system
+              - switch.3d_printer
+            state_filter:
+              - 'on'
+              - 'open'
+            card: 
+              type: glance
+              show_state: false
+      - type: horizontal-stack
+        cards:
+          - type: custom:gauge-card
+            title: Temperature
+            entity: sensor.bunker_temperature
+            min: -20
+            max: 35
+          - type: custom:gauge-card
+            title: Humidity
+            entity: sensor.bunker_humidity
+            severity:
+              red: 50
+              green: 0
+        amber: 40
+      - type: iframe
+        url: https://emon.server.eu/dashd.html
+        aspect_ratio: 63%
+  - title: dash
+    icon: mdi:home
+    cards:
+      - type: entities
+        entities:
+          - scene.kids_sleep
+          - scene.leave_home
+          - scene.living_room_normal
+          - scene.relax
+          - scene.second_floor_normal
           - scene.all_lights_off
           - scene.all_blinds_close
           - device_tracker.iphonebruno
           - device_tracker.iphonedeana
-      - type: glance
-        title: Power Consuption
+      - type: entities
+        title: Power
+        show_header_toggle: true
+        entities:
+          - sensor.emoncms_nodepzemamperagem
+          - sensor.emoncms_nodepzempotencia
+          - sensor.emoncms_nodepzemtemperature
+          - sensor.emoncms_nodepzemvoltagem
+      - type: history-graph
+        title: Electrical Consumption
+        hours_to_show: 24
+        refresh_interval: 0
         entities:
           - sensor.emoncms_nodepzempotencia
-          - sensor.emoncms_nodepzemamperagem
-          - sensor.emoncms_nodepzemvoltagem
-          - sensor.emoncms_por_kwh
-          - sensor.emoncms_nodepzemtemperature
-          - sensor.emoncms_nodepzemsolarpotencia
-          - sensor.emoncms_nodepzemsolaramperagem
-          - sensor.emoncms_nodepzemsolarvoltagem
-          - sensor.emoncms_prod_kwh
-          - sensor.emoncms_nodepzemsolartemperature
-      - type: entity-filter
+      - type: entities
+        title: Phones
+        show_header_toggle: true
         entities:
-          - light.bhonofre91130a_0
-          - light.bhonofre91130a_1
+          - sensor.iphone_de_ana_battery_state
+          - sensor.iphone_de_ana_battery_level
+          - sensor.iphone_bruno_battery_state
+          - sensor.iphone_bruno_battery_level
+          - sensor.ipad_de_ana_battery_state
+          - sensor.ipad_de_ana_battery_level
+      - type: entities
+        title: Forecast
+        show_header_toggle: true
+        entities:
+          - sensor.dark_sky_apparent_temperature
+          - sensor.dark_sky_humidity
+          - sensor.dark_sky_icon
+      - type: entities
+        title: Blinds
+        show_header_toggle: true
+        entities:
+          - cover.kitchen_right_blinds
+          - cover.kitchen_left_blinds
+          - cover.living_room_blinds
+      - type: entities
+        title: Living Room Lights
+        show_header_toggle: true
+        entities:
+          - light.living_room_center
+          - light.dinner_table
+      - type: entities
+        title: Kitchen Lights
+        show_header_toggle: true
+        entities:
+          - light.kitchen_bench
+          - light.kitchen_table
+      - type: entities
+        title: All lights
+        show_header_toggle: true
+        entities:
           - light.bottom
+          - light.bunker
+          - light.bunker_closet
           - light.bunker_stairs
+          - light.bunker_studio
           - light.dinner_table
           - light.front_door
           - light.garage_stairs
+          - light.interrutor1
+          - light.interrutor2
           - light.kitchen_bench
           - light.kitchen_table
           - light.living_room_center
           - light.outside
           - light.second_floor_light
+          - light.secretary
           - light.terrace
-        state_filter:
-          - 'on'
-        card:
-          title: Devices On
-      - type: entity-filter
-        entities:
-          - cover.kitchen_left_blinds
-          - cover.kitchen_right_blinds
-          - cover.living_room_blinds
-        state_filter:
-          - 'open'
-        card:
-          title: Windows Open
-    # Name of the view. Will be used as the tooltip for tab icon
-  - icon: mdi:home-assistant
-    id: Second view
+          - light.wc
+          - light.bhonofre_garagestairs_relay_1
+          - light.bhonofre_garagestairs_relay_2
+  - title: Street
     cards:
-      - type: glance
+      - type: entities
+        entities:
+          - sensor.mailbox
+          - sensor.mailbox_door
+          - light.front_door
+      - type: entities
         title: Mailbox
+        show_header_toggle: true
         entities:
           - sensor.mailbox
           - sensor.last_mail_receive_on
           - sensor.mail_checked_on
           - sensor.mailbox_door
-      - type: glance
-        title: Media
+      - type: entities
+        title: Entrance
+        show_header_toggle: true
         entities:
-          - media_player.tv
-          - media_player.sound_system
-          - media_player.mediaroom_19216818611
-          - media_player.apple_tv         
-          - switch.hdmi_one
-          - switch.hdmi_two
-          - switch.hdmi_three
-      - type: picture-glance
-        camera_image: camera.garage
-        title: Garage
+          - sensor.front_door
+          - lock.outdoor_gate
+      - type: entities
+        title: Sensors
+        show_header_toggle: true
         entities:
-          - lock.garage_gate
-          - light.outside
-          - light.bottom
-          - light.garage_stairs
-          - sensor.garage_temperature
-          - sensor.garage_humidity
-          - sensor.garage_lightbulb
-      
-      - type: picture-glance
-        image: https://s3-eu-west-1.amazonaws.com/howdens-howden-prod/web_content/content/image/7026-13831-3.jpg
-        title: Kitchen
+          - sensor.street_temperature
+          - sensor.street_humidity
+          - sensor.street_lightbulb
+          - sensor.ring_front_door_battery
+          - sensor.ring_front_door_last_activity
+          - sensor.ring_front_door_last_ding
+          - sensor.ring_front_door_last_motion
+          - sensor.ring_front_door_volume
+          - sensor.ring_front_door_wifi_signal_category
+          - sensor.ring_front_door_wifi_signal_strength
+  - title: Master Room
+    cards:
+      - type: entities
         entities:
-          - cover.kitchen_left_blinds    
-          - cover.kitchen_right_blinds
-          - light.kitchen_bench
-          - light.kitchen_table
-      
-      - type: picture-glance
-        image: https://hips.hearstapps.com/hbu.h-cdn.co/assets/16/24/3200x1600/landscape-hbx060116prentice03-1.jpg?resize=768:*
-        title: Living Room
+          - climate.air_conditioner
+  - title: Living Room
+    cards:
+      - type: entities
         entities:
           - cover.living_room_blinds
           - light.living_room_center
           - light.dinner_table
+          - switch.hdmi_one
+          - switch.hdmi_two
+          - switch.hdmi_three
+          - switch.media_devices
+      - type: media-control
+        entity: media_player.apple_tv
+      - type: media-control
+        entity: media_player.mediaroom_19216818611
+      - type: media-control
+        entity: media_player.tv
+      - type: media-control
+        entity: media_player.sound_system
+  - title: Kitchen
+    cards:
+      - type: entities
+        entities:
+          - cover.kitchen_left_blinds
+          - cover.kitchen_right_blinds
+          - light.kitchen_bench
+          - light.kitchen_table
+  - title: Second Floor
+    cards:
+      - type: entities
+        entities:
+          - light.second_floor_light
+          - light.wc
+  - title: Bunker
+    cards:
+      - type: entities
+        entities:
+          - sensor.social_youtube
+          - light.bunker
+          - light.secretary
+          - light.bunker_closet
+          - light.bunker_stairs
+          - light.bunker_studio
+      - type: entities
+        title: Sensors
+        show_header_toggle: true
+        entities:
+          - sensor.bunker_temperature
+          - sensor.bunker_humidity
+          - sensor.bunker_lightbulb
+          - sensor.speedtest_download
+          - sensor.speedtest_ping
+          - sensor.speedtest_upload
+      - type: entities
+        title: Computers
+        show_header_toggle: true
+        entities:
+          - switch.icepc
+      - type: entities
+        title: 3D Printer
+        show_header_toggle: true
+        entities:
+          - switch.3d_printer
+          - binary_sensor.octoprint_printing_error
+          - binary_sensor.octoprint_printing
+          - sensor.octoprint_actual_bed_temp
+          - sensor.octoprint_actual_tool0_temp
+          - sensor.octoprint_current_state
+          - sensor.octoprint_job_percentage
+          - sensor.octoprint_target_bed_temp
+          - sensor.octoprint_target_tool0_temp
+      - type: picture-entity
+        title: 3D Printer
+        entity: camera.3d_printer
+        camera_image: camera.3d_printer
+        show_info: true
+        tap_action: dialog
+  - title: Terrace
+    cards:
+      - type: entities
+        entities:
+          - light.terrace
+  - title: Garage
+    cards:
+      - type: entities
+        entities:
+          - lock.garage_gate
+          - light.bhonofre_garagestairs_relay_1
+          - light.bhonofre_garagestairs_relay_2
+          - light.outside
+          - light.bottom
+          - light.garage_stairs
+      - type: picture-entity
+        title: Garage
+        entity: camera.garage
+        camera_image: camera.garage
+        show_info: true
+        tap_action: dialog
+      - type: entities
+        title: Sensors
+        show_header_toggle: true
+        entities:
+          - sensor.garage_temperature
+          - sensor.garage_humidity
+          - sensor.garage_lightbulb

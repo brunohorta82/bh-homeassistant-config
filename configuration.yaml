@@ -28,9 +28,13 @@ homeassistant:
 #               
 http:
   api_password: !secret api_password
-  base_url: !secret base_url
-  ssl_certificate: !secret ssl_certificate
-  ssl_key: !secret ssl_key
+  server_port: !secret api_port
+  base_url: !secret my_url
+  use_x_forwarded_for: true
+  trusted_proxies:  127.0.0.1
+  ip_ban_enabled: true
+  login_attempts_threshold: 5
+websocket_api:
 
 #    ______   _____     ____    _   _   _______     ______   _   _   _____  
 #   |  ____| |  __ \   / __ \  | \ | | |__   __|   |  ____| | \ | | |  __ \ 
@@ -43,8 +47,8 @@ http:
 frontend:
   themes: !include_dir_merge_named themes
   javascript_version: latest
-  #extra_html_url:
-   # - /local/lovelace.html
+  extra_html_url:
+    - /local/lovelace.html
 #     _____   _____     ____    _    _   _____     _____ 
 #    / ____| |  __ \   / __ \  | |  | | |  __ \   / ____|
 #   | |  __  | |__) | | |  | | | |  | | | |__) | | (___  
@@ -71,6 +75,14 @@ mqtt:
   password: !secret password
   keepalive: 60
   protocol: 3.1
+  birth_message:
+    topic: 'hass/status'
+    payload: 'online'
+    retain: true
+  will_message:
+    topic: 'hass/status'
+    payload: 'offline'
+    retain: true
 
 #    ______   ____    _   _   ______    _____ 
 #   |___  /  / __ \  | \ | | |  ____|  / ____|
@@ -181,6 +193,37 @@ logbook:
 #  
 homekit:
   pincode: !secret pincode
+  filter:
+    exclude_domains:
+      - automation
+      - script
+      - octoprint
+      - device_tracker
+      - homekit
+    exclude_entities:
+      - binary_sensor.octoprint_printing
+      - binary_sensor.octoprint_printing_error
+      - sensor.octoprint_actual_bed_temp
+      - sensor.octoprint_actual_tool0_temp
+      - light.bhonofre91130a_0
+      - sensor.octoprint_current_state
+      - sensor.octoprint_job_percentage
+      - sensor.octoprint_target_bed_temp  
+      - sensor.octoprint_target_tool0_temp 
+      - binary_sensor.ring_front_door_ding
+      - binary_sensor.ring_front_door_motion
+      - sensor.dark_sky_apparent_temperature  
+      - sensor.dark_sky_humidity
+      - sensor.dark_sky_icon
+      - sensor.dark_sky_nearest_storm_distance
+      - sensor.dark_sky_precip_intensity
+      - sensor.dark_sky_precip_probability
+      - sensor.dark_sky_pressure
+      - sensor.dark_sky_summary
+      - sensor.dark_sky_temperature
+      - sensor.dark_sky_wind_bearing
+      - sensor.dark_sky_wind_speed
+
 
 #    _    _                 _____   _         ____    _    _   _____  
 #   | |  | |     /\        / ____| | |       / __ \  | |  | | |  __ \ 
@@ -398,3 +441,26 @@ notify: !include notifies.yaml
 #                                                                                                                                    
 #
 device_tracker: !include device_trackers.yaml
+
+#    _____ ____   _____ 
+#   |_   _/ __ \ / ____|
+#     | || |  | | (___  
+#     | || |  | |\___ \ 
+#    _| || |__| |____) |
+#   |_____\____/|_____/ 
+#                       
+# 
+ios:
+  push:
+    categories:
+      - name: Light
+        identifier: 'bunker_light'
+        actions:
+          - identifier: 'BUNKER_TURN_LIGHT_OFF'
+            title: 'Turn Off'
+            activationMode: 'background'
+            authenticationRequired: yes
+            destructive: no
+            behavior: 'default'
+
+influxdb:
