@@ -126,3 +126,23 @@ light.bunkerstairs_1:
   friendly_name: Bunker Cabinet
 light.bunkerstairs_0:
   friendly_name: Bunker Stairs
+light.bhonofre_garagestairs_relay_1:
+  friendly_name: Garage Laundry
+light.bhonofre_garagestairs_relay_2:
+  friendly_name: Garage Middle
+light.bottom:
+  friendly_name: Garage Bottom
+switch.3d_printer:
+  icon: mdi:printer-3d
+binary_sensor.0x00158d000288cef3:
+  friendly_name: Second Floor Stairs
+binary_sensor.0x00158d000288ce83:
+  device_class: door
+  friendly_name: Bunker Stairs
+binary_sensor.0x00158d000288ce89:
+  device_class: window
+  friendly_name: Bunker Window
+light.aliceswitchdoor:
+  friendly_name: Alice Room Light
+switch.tree:
+  icon: mdi:pine-tree

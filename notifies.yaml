@@ -1,2 +1,11 @@
   - platform: ios
     name: ios
+  - platform: webostv
+    host: 192.168.187.59
+    name: TV
+    filename: webostv.conf
+  - name: Notify Group
+    platform: group
+    services:
+      - service: ios
+      - service: tv

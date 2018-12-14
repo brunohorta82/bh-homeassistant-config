@@ -13,30 +13,6 @@
     host: 192.168.187.123
     token: !secret lrc_token
   - platform: mqtt
-    name: "Kitchen Table"
-    state_topic: "bhhome/Kitchen/table/light/status"
-    command_topic: "bhhome/Kitchen/table/light/set"
-    qos: 0
-    retain: true
-  - platform: mqtt
-    name: "Kitchen Bench"
-    state_topic: "bhhome/Kitchen/bench/light/status"
-    command_topic: "bhhome/Kitchen/bench/light/set"
-    qos: 0
-    retain: true
-  - platform: mqtt
-    name: "Front Door"
-    state_topic: "bhhome/street/frontdoor/light/status"
-    command_topic: "bhhome/street/frontdoor/light/set"
-    qos: 0
-    retain: true
-  - platform: mqtt
-    name: "Dinner Table"
-    state_topic: "bhhome/livingroom/table/light/status"
-    command_topic: "bhhome/livingroom/table/light/set"
-    qos: 0
-    retain: true
-  - platform: mqtt
     name: "Outside"
     state_topic: "garage/outsidelight"
     command_topic: "garage/outsidelight/set"
@@ -46,11 +22,5 @@
     name: "Bottom"
     state_topic: "garage/l3"
     command_topic: "garage/l3/set"
-    qos: 0
-    retain: true
-  - platform: mqtt
-    name: "Garage Stairs"
-    state_topic: "LightGarageStairs"
-    command_topic: "LightGarageStairs/set"
     qos: 0
     retain: true

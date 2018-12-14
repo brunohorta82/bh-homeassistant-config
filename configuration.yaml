@@ -27,7 +27,7 @@ homeassistant:
 #                                  
 #               
 http:
-  api_password: !secret api_password
+  #api_password: !secret api_password
   server_port: !secret api_port
   base_url: !secret my_url
   use_x_forwarded_for: true
@@ -47,8 +47,8 @@ websocket_api:
 frontend:
   themes: !include_dir_merge_named themes
   javascript_version: latest
-  extra_html_url:
-    - /local/lovelace.html
+#  extra_html_url:
+#    - /local/lovelace.html
 #     _____   _____     ____    _    _   _____     _____ 
 #    / ____| |  __ \   / __ \  | |  | | |  __ \   / ____|
 #   | |  __  | |__) | | |  | | | |  | | | |__) | | (___  
@@ -172,6 +172,7 @@ recorder:
       - sensor.speedtest_ping
       - sensor.speedtest_download
       - sensor.speedtest_upload
+      - sensor.time_utc
 
 #    _         ____     _____   ____     ____     ____    _  __
 #   | |       / __ \   / ____| |  _ \   / __ \   / __ \  | |/ /
@@ -389,6 +390,7 @@ history_graph: !include history_graphs.yaml
 octoprint:
   host: !secret octo_host
   api_key: !secret octo_api_key
+  port: !secret octo_port
   bed: true
   number_of_tools: 1
 
@@ -463,4 +465,14 @@ ios:
             destructive: no
             behavior: 'default'
 
-influxdb:
+
+ffmpeg:
+  ffmpeg_bin: /usr/bin/ffmpeg
+  
+wake_on_lan:
+
+
+vacuum:
+  - platform: xiaomi_miio
+    host: !secret robot_ip
+    token: !secret robot_token

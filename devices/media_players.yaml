@@ -1,13 +1,14 @@
   - platform: mediaroom
     name: Smart Box
     host: !secret smart_box_host
-  - platform: broadlink
-    name: TV 
-    host: !secret broadlink_tv_host
-    mac: !secret broadlink_tv_mac
-    ircodes_ini: 'broadlink_media_codes/lg.ini'
-  - platform: broadlink
-    name: Sound System
-    host: !secret broadlink_tv_host
-    mac: !secret broadlink_tv_mac
-    ircodes_ini: 'broadlink_media_codes/lg_sound.ini'
+  - platform: alexa
+    email: !secret email 
+    password: !secret amazon_password
+    url: "amazon.com"
+  - platform: webostv
+    host: 192.168.187.59
+    name: TV
+    turn_on_action:
+      service: wake_on_lan.send_magic_packet
+      data:
+        mac: "00-51-ed-34-55-90"

@@ -1,48 +1,42 @@
   alexa:
     filter:
+      include_entities:
+        - group.kitchen_lights
+        - group.living_room_lights
       exclude_entities:
-        - group.garage
-        - group.all_automations
-        - group.all_devices
-        - cover.kitchen_right_blinds
-        - group.all_lights
-        - group.all_locks
-        - group.all_covers
-        - group.covers
-      # - group.blinds
-        - switch.all_blinds
-        - cover.kitchen_left_blinds
-        - cover.living_room_blinds
-        - group.phones
-        - group.all_scripts
-        - group.all_switches
-        - switch.kitchen_blinds
-        - switch.living_room_blinds
-        - group.bunker
         - sensor.octoprint_target_bed_temp
-        - group.all_covers
-        - group.garage
-        - group.kitchen
-        - sensor.octoprint_actual_tool0_temp
-        - sensor.dark_sky_temperature
-        - sensor.octoprint_target_tool0_temp
+        - binary_sensor.octoprint_printing
+        - binary_sensor.octoprint_printing_error
         - sensor.octoprint_actual_bed_temp
-        - cover.kitchen_left_cover
-        - sensor.dark_sky_apparent_temperature
-        - group.street
-        - group.terrace
-        - group.power_consumption
-        - group.bunker_computers
-        - group.second_floor
-        - group.bunker_sensors
-        - group.garage_sensors
-        - group.forecast
-        - group.street_sensors
-        - group.street_door
-        - group.3d_printer
-        - group.living_room
-        - group.street_mailbox
-        - group.default_view
+        - sensor.octoprint_actual_tool0_temp
+        - light.bhonofre91130a_0
+        - sensor.octoprint_current_state
+        - sensor.octoprint_job_percentage
+        - sensor.octoprint_target_bed_temp  
+        - sensor.octoprint_target_tool0_temp 
+        - binary_sensor.ring_front_door_ding
+        - binary_sensor.ring_front_door_motion
+        - sensor.dark_sky_apparent_temperature  
+        - sensor.dark_sky_humidity
+        - sensor.dark_sky_icon
+        - sensor.dark_sky_nearest_storm_distance
+        - sensor.dark_sky_precip_intensity
+        - sensor.dark_sky_precip_probability
+        - sensor.dark_sky_pressure
+        - sensor.dark_sky_summary
+        - sensor.dark_sky_temperature
+        - sensor.dark_sky_wind_bearing
+        - sensor.dark_sky_wind_speed
+        - media_player.brunos_reverbai
+        - media_player.second_floor_echo_dot
+        - media_player.this_device
+        - media_player.brunos_alexa_apps
+        - media_player.kitchen__echo_dot
+        - media_player.living_room_echo_dot
       exclude_domains:
-        - script
         - automation
+        - script
+        - group
+        - octoprint
+        - device_tracker
+        - homekit

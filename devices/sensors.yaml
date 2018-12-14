@@ -1,19 +1,8 @@
 
+  - platform: time_date
+    display_options:
+      - 'time_utc'
   - platform: ring
-  - platform: darksky
-    api_key: !secret darksky_api_key
-    monitored_conditions:
-      - summary
-      - icon
-      - nearest_storm_distance
-      - temperature
-      - apparent_temperature
-      - humidity
-      - precip_probability
-      - wind_bearing
-      - pressure
-      - wind_speed
-      - precip_intensity
   - platform: mqtt
     state_topic: 'bhhome/bunker/sensor/temperature'
     name: 'Bunker Temperature'
@@ -40,7 +29,7 @@
     name: 'Mailbox Door'
   - platform: mqtt
     state_topic: 'bhhome/street/sensor/mailBoxSensor/outFrontDoor/position/state'
-    name: 'Front Door'
+    name: 'Front Door Gate'
   - platform: mqtt
     state_topic: 'bhhome/bunker/sensor/humidity'
     name: 'Bunker Humidity'
@@ -71,15 +60,15 @@
     state_topic: 'bhhome/social/youtube/suscribers'
     name: 'Social Youtube'
     unit_of_measurement: 'pl'
-  - platform: speedtest
-    monitored_conditions:
-      - ping
-      - download
-      - upload
   - platform: emoncms
     api_key: !secret emoncms_api_key
     url: !secret emoncms_url
     id: 1
+    include_only_feed_id:
+        - 18
+        - 43
+        - 32
+
   - platform: octoprint
     name: OctoPrint
     monitored_conditions:

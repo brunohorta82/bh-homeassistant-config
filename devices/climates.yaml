@@ -6,12 +6,13 @@
     min_temp: 16
     max_temp: 30
     target_temp: 20
-    temp_sensor: sensor.bunker_temperature
-    default_operation: idle
+    target_temp_step: 1
+    temp_sensor: sensor.main_room_temperature
+    default_operation: 'off'
     default_fan_mode: mid
     customize:
       operations:
-        - idle
+        - 'off'
         - cool
         - heat
       fan_modes:

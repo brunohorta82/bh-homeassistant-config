@@ -1,0 +1,8 @@
+  - platform: unifi
+    verify_ssl: False
+    username: !secret unify_us
+    password: !secret unify_pw
+    track_new_devices: False
+    consider_home: 30
+    ssid_filter:
+      - 'IOTBH'

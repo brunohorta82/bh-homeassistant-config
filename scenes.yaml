@@ -1,3 +1,8 @@
+  - name: Cinema
+    entities:
+      media_player.sound_system: on
+      media_player.tv: on
+      media_player.mediaroom_19216818611: on
   - name: All Lights Off
     entities:
       group.all_lights: off

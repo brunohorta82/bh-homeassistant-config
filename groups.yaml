@@ -63,14 +63,18 @@ second_floor:
   name: Second Floor
   entities:
     - light.second_floor_light
+    - light.wc
 bunker:
   name: Bunker
   view: true
   entities:
-    - light.bhonofre91130a_1
+    
     - sensor.social_youtube
-    - light.bunkerstairs_0
-    - light.bunkerstairs_1
+    - light.bunker
+    - light.secretary
+    - light.bunker_closet
+    - light.bunker_stairs
+    - light.bunker_studio
     - group.bunker_sensors
     - group.bunker_computers 
     - group.3d_printer
@@ -143,6 +147,8 @@ garage:
     - camera.garage
     - lock.garage_gate
     - group.garage_sensors
+    - light.bhonofre_garagestairs_relay_1
+    - light.bhonofre_garagestairs_relay_2
     - light.outside
     - light.bottom
     - light.garage_stairs

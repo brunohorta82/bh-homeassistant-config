@@ -1,22 +1,35 @@
-- action:
-  - alias: push_ios
+- alias: Set theme at startup
+  initial_state: 'on'
+  trigger:
+  - platform: homeassistant
+    event: start
+  action:
+    service: frontend.set_theme
     data:
-      message: You Got Mail
-    service: notify.ios
+      name: midnight
+  id: ac3eae43f1094701bb768968eba33eda
+- id: '1502819401171'
   alias: Mail Notification
-  condition: []
-  id: '1502819401171'
   trigger:
   - entity_id: sensor.mailbox
     from: 'No'
     platform: state
     to: 'Yes'
+  condition: []
+  action:
+  - alias: push_ios
+    data:
+      message: You Got Mail
+    service: notify.notify_group
 - id: '1502832792621'
   alias: Auto Close Blinds
   trigger:
-  - at: '21:00'
-    platform: time
-  condition: []
+  - below: '10'
+    entity_id: sensor.street_lightbulb
+    platform: numeric_state
+  condition:
+  - after: '18:00'
+    condition: time
   action:
   - alias: close_all_blinds_at_time
     data: {}
@@ -30,7 +43,20 @@
   trigger:
   - at: '9:00'
     platform: time
-- action:
+- id: '1503009748042'
+  alias: Turn on when Garage Gate Open
+  trigger:
+  - entity_id: lock.garage_gate
+    from: locked
+    platform: state
+    to: unlocked
+  condition:
+  - above: '0.0'
+    below: '5.0'
+    condition: numeric_state
+    entity_id: sensor.garage_lightbulb
+    value_template: '{{ states.sensor.garage_lightbulb.state | int }}'
+  action:
   - alias: turn_on_garage_lights
     data:
       entity_id: light.outside
@@ -41,22 +67,25 @@
     service: light.turn_on
   - alias: turn on garage stairs
     data:
-      entity_id: light.garage_stairs
+      entity_id: light.garage_stairs_
     service: light.turn_on
-  alias: Garage Lights
-  condition:
-  - above: '0.0'
-    below: '5.0'
-    condition: numeric_state
-    entity_id: sensor.garage_lightbulb
-    value_template: '{{ states.sensor.garage_lightbulb.state | int }}'
-  id: '1503009748042'
+  - data:
+      entity_id: light.laundry
+    service: light.turn_on
+  - data:
+      entity_id: light.living_room_center
+    service: light.turn_on
+- id: '1503012232085'
+  alias: Turn Off When Garage Gate Close
   trigger:
   - entity_id: lock.garage_gate
-    from: locked
+    for:
+      minutes: 3
+    from: unlocked
     platform: state
-    to: unlocked
-- action:
+    to: locked
+  condition: []
+  action:
   - alias: Turn Off Outside Garage Light
     data:
       entity_id: light.outside
@@ -65,51 +94,38 @@
     data:
       entity_id: light.bottom
     service: light.turn_off
-  alias: Auto Turn Off Lights
-  condition: []
-  id: '1503012232085'
-  trigger:
-  - entity_id: lock.garage_gate
-    for:
-      minutes: 3
-    from: unlocked
-    platform: state
-    to: locked
-- action:
-  - alias: Turn Off
-    data:
-      entity_id: light.garage_stairs
+  - data:
+      entity_id: light.laundry
     service: light.turn_off
-  alias: Auto Turn On Garage Light Stairs
-  condition: []
-  id: '1504910595802'
+  - data:
+      entity_id: light.pir_garage_stairs
+    service: light.turn_off
+- id: '1516471952972'
+  alias: '[LINK]  Living Room Center Light'
   trigger:
-  - entity_id: light.garage_stairs
-    for:
-      minutes: 3
-    from: 'off'
+  - entity_id: sensor.living_room_center
     platform: state
-    to: 'on'
-- action:
+  - entity_id: sensor.living_center_slave
+    platform: state
+  condition: []
+  action:
   - data:
       entity_id: light.living_room_center
     service: homeassistant.toggle
-  alias: LivingRoomCenterLightToogle
-  condition: []
-  id: '1516471952972'
+- id: '1523120667872'
+  alias: '[LINK] SecondFloorLight'
   trigger:
-  - platform: mqtt
-    topic: bhhome/livingroom/center/light/status
-- action:
+  - entity_id: sensor.sec_floor_alice
+    platform: state
+  - entity_id: sensor.sec_floor_mroom
+    platform: state
+  - entity_id: sensor.sec_stairs_down
+    platform: state
+  condition: []
+  action:
   - data:
       entity_id: light.second_floor_light
     service: homeassistant.toggle
-  alias: SecondFloorLightToogle
-  condition: []
-  id: '1523120667872'
-  trigger:
-  - platform: mqtt
-    topic: bhhome/second_floor/light/set
 - action:
   - data:
       entity_id: light.front_door
@@ -125,7 +141,7 @@
     platform: state
     to: 'on'
 - id: '1527013467454'
-  alias: TurnOnFrontDoorLight
+  alias: Turn On Front Door Light
   trigger:
   - entity_id: sensor.front_door
     from: CLOSED
@@ -135,11 +151,293 @@
     from: 'off'
     platform: state
     to: 'on'
-  condition:
-  - below: '25'
-    condition: numeric_state
-    entity_id: sensor.street_lightbulb
+  condition: []
   action:
   - data:
       entity_id: light.front_door
     service: light.turn_on
+- id: '1533773656633'
+  alias: '[NOTIFY] Bunker Events'
+  trigger:
+  - entity_id: light.bunker
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition: []
+  action:
+  - data:
+      data:
+        push:
+          badge: 0
+          category: bunker_light
+      message: Something happened at bunker!
+    service: notify.ios_bruno
+- id: '1533776299222'
+  alias: '[SECURITY] Send notification upon failed login attempt'
+  trigger:
+  - entity_id: persistent_notification.httplogin
+    platform: state
+  condition:
+  - condition: template
+    value_template: '{{ states(''persistent_notification.httplogin'') != ''unknown''
+      }}'
+  action:
+  - data:
+      message: Login Fail!!
+    service: notify.notify_group
+- alias: Push Turn Off Light
+  trigger:
+    platform: event
+    event_type: ios.notification_action_fired
+    event_data:
+      actionName: BUNKER_TURN_LIGHT_OFF
+  action:
+  - data:
+      entity_id: light.bunker
+    service: light.turn_off
+  id: 5d8de7f9433c424583dfd357ac877f52
+- id: '1536278036057'
+  alias: '[LINK ] Garage Stairs'
+  trigger:
+  - entity_id: sensor.garagestairsdown
+    platform: state
+  condition: []
+  action:
+  - data:
+      entity_id: light.garage_stairs_
+    service: light.toggle
+- id: '1536278167856'
+  alias: '[LINK ] Garage Bottom'
+  trigger:
+  - entity_id: sensor.garagebottomstairs
+    platform: state
+  condition: []
+  action:
+  - data:
+      entity_id: light.bottom
+    service: light.toggle
+- id: '1541874739859'
+  alias: '[CUBE] ROTATE RIGHT'
+  trigger:
+  - entity_id: sensor.cube_one
+    platform: state
+    to: rotate_right
+  condition: []
+  action:
+  - data:
+      entity_id: light.bunker
+    service: light.turn_on
+- id: '1541875157451'
+  alias: '[CUBE] ROTATE LEFT'
+  trigger:
+  - entity_id: sensor.cube_one
+    platform: state
+    to: rotate_left
+  condition: []
+  action:
+  - data:
+      entity_id: light.bunker
+    service: light.turn_off
+- id: '1541875429097'
+  alias: '[CUBE] SHAKE'
+  trigger:
+  - entity_id: sensor.cube_one
+    platform: state
+    to: shake
+  condition: []
+  action:
+  - data:
+      entity_id: ' group.all_covers'
+    service: cover.close_cover
+- id: '1541876212069'
+  alias: '[CUBE] TAP'
+  trigger:
+  - entity_id: sensor.cube_one
+    platform: state
+    to: tap
+  condition: []
+  action:
+  - data:
+      entity_id: group.all_lights
+    service: light.turn_off
+- id: '1541877590758'
+  alias: '[CUBE] FLIP90'
+  trigger:
+  - entity_id: sensor.cube_one
+    platform: state
+    to: flip90
+  condition: []
+  action:
+  - data:
+      entity_id: light.secretary
+    service: light.turn_on
+  - data:
+      entity_id: light.bunker_closet
+    service: light.turn_off
+  - data:
+      entity_id: light.bunker_stairs
+    service: light.turn_off
+  - data:
+      entity_id: light.bunker
+    service: light.turn_off
+- id: '1541901442384'
+  alias: Turn Off 3D Printer When Job Done
+  trigger:
+  - entity_id: sensor.octoprint_job_percentage
+    platform: state
+    to: '100'
+  condition:
+  - condition: state
+    entity_id: light.bunker
+    state: 'off'
+  action:
+  - data:
+      entity_id: switch.3d_printer
+    service: switch.turn_off
+  - data:
+      message: 3D Printer Done the Job and Turn Off.
+    service: notify.notify_group
+- id: '1542763096136'
+  alias: Turn Off Tv Box  When TV Off
+  trigger:
+  - entity_id: media_player.tv
+    platform: state
+    to: 'off'
+  condition: []
+  action:
+  - data:
+      entity_id: media_player.mediaroom_19216818611
+    service: media_player.turn_off
+- id: '1542764026474'
+  alias: Turn On Tv Box and Sound System When TV is On
+  trigger:
+  - entity_id: media_player.tv
+    platform: state
+    to: playing
+  condition: []
+  action:
+  - data:
+      entity_id: media_player.mediaroom_19216818611
+    service: media_player.turn_on
+- id: '1542770485600'
+  alias: Turn On Second Floor Light When leave Bunker
+  trigger:
+  - entity_id: light.bunker_studio
+    from: 'on'
+    platform: state
+    to: 'off'
+  condition: []
+  action:
+  - data:
+      entity_id: light.second_floor_light
+    service: light.turn_on
+- id: '1542814636605'
+  alias: Turn Off When no one is Home
+  trigger:
+  - entity_id: group.all_devices
+    for: 0:02:00
+    platform: state
+    to: not_home
+  condition: []
+  action:
+  - data:
+      entity_id: group.all_lights
+    service: light.turn_off
+  - data:
+      entity_id: switch.icepc
+    service: switch.turn_off
+  - data:
+      message: All Lights and selected devices turned off.
+    service: notify.ios
+  - data:
+      entity_id: switch.tree
+    service: switch.turn_off
+- id: '1542820266693'
+  alias: Power Consumption
+  trigger:
+  - above: '500'
+    entity_id: sensor.emoncms_nodepzempotencia
+    platform: numeric_state
+  - entity_id: light.living_room_center
+    platform: state
+  condition:
+  - condition: state
+    entity_id: group.all_devices
+    state: not_home
+  action:
+  - data:
+      message: Power consumption above normal {{ states.sensor.emoncms_nodepzempotencia.state
+        }} W
+    service: notify.notify_group
+- id: '1543017605726'
+  alias: '[MOTION] Garage Stairs'
+  trigger:
+  - entity_id: binary_sensor.pirstairsgarage
+    platform: state
+    to: 'on'
+  condition: []
+  action:
+  - data:
+      entity_id: light.garage_stairs_
+    service: light.turn_on
+- id: '1543019837756'
+  alias: Auto Turn Off Garage Stairs
+  trigger:
+  - entity_id: light.garage_stairs_
+    for: 0:02:00
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition: []
+  action:
+  - data:
+      entity_id: light.garage_stairs_
+    service: light.turn_off
+- id: '1544042048805'
+  alias: '[BTN] One Click'
+  trigger:
+  - entity_id: sensor.btn_room
+    platform: state
+  condition:
+  - condition: state
+    entity_id: sensor.btn_room
+    state: single
+  action:
+  - data:
+      entity_id: light.second_floor_light
+    service: light.toggle
+- id: '1544056461332'
+  alias: '[BTN] Two Triple'
+  trigger:
+  - entity_id: sensor.btn_room
+    platform: state
+  condition:
+  - condition: state
+    entity_id: sensor.btn_room
+    state: triple
+  action:
+  - data:
+      entity_id: light.second_floor_light
+    service: light.turn_on
+  - data:
+      entity_id: light.living_room_center
+    service: light.turn_on
+  - data:
+      entity_id: light.kitchen_table
+    service: light.turn_on
+- id: '1544057018779'
+  alias: '[BTN] Btn Quadruple'
+  trigger:
+  - entity_id: sensor.btn_room
+    platform: state
+  condition:
+  - condition: state
+    entity_id: sensor.btn_room
+    state: quadruple
+  action:
+  - data:
+      entity_id: group.all_lights
+    service: light.turn_off
+  - data:
+      entity_id: group.all_covers
+    service: cover.close_cover

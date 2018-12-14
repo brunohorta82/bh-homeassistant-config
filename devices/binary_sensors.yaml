@@ -3,3 +3,6 @@
     monitored_conditions:
       - Printing
       - Printing Error
+  - platform: mqtt
+    state_topic: 'wallpanel/mywallpanel/sensor/motion'
+    name: 'Living Room Wall Motion'

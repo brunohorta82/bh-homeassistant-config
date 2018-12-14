@@ -1,18 +1,10 @@
-  turn_media_devices:
-    sequence:
-      - service: media_player.toggle
-        data:        
-          entity_id: media_player.sound_system
-      - delay:
-          seconds: 2
-      - service: switch.toggle
-        data:        
-          entity_id: switch.hdmi_one
-      - delay:
-          seconds: 1  
-      - service: media_player.toggle
-        data:        
-          entity_id: media_player.tv
-      - service: media_player.toggle
-        data:        
-          entity_id: media_player.mediaroom_19216818611
+'1542842262056':
+  alias: TurnOffLivingRoomWithDelay
+  sequence:
+  - delay: 00:00:11
+  - data:
+      entity_id: group.living_room
+    service: homeassistant.turn_off
+  - data:
+      entity_id: group.kitchen
+    service: homeassistant.turn_off

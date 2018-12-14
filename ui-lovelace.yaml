@@ -1,198 +1,313 @@
 title: Horta's Home
-resources:
-  - url: /local/kiosk.js
-    type: js
-  - url: /local/gauge-card.js?v=1
-    type: js
 views:
   - icon: mdi:view-dashboard
+    id: Living_Room_Dashboard
+    panel: true
+    cards:
+      - type: vertical-stack
+        cards:
+          - type: horizontal-stack
+            cards:
+            - type: vertical-stack
+              cards:
+              - type: horizontal-stack
+                cards:
+                  - type: sensor
+                    entity:  sensor.time_utc
+                  - type: sensor
+                    entity: sensor.mailbox
+
+              
+              - type: horizontal-stack
+                cards:
+                - type: light
+                  entity: light.living_room_center
+                - type: light
+                  entity: light.second_floor_light 
+              - type: entity-filter
+                entities:
+                  - entity: light.bottom
+                    tap_action: toggle
+                  - entity: light.bunker
+                    tap_action: toggle
+                  - entity: light.bunker_closet
+                    tap_action: toggle
+                  - entity: light.bunker_stairs
+                    tap_action: toggle
+                  - entity: light.bunker_studio
+                    tap_action: toggle
+                  - entity: light.dinner_table
+                    tap_action: toggle
+                  - entity: light.front_door
+                    tap_action: toggle
+                  - entity: light.garage_stairs_
+                    tap_action: toggle
+                  - entity: light.interrutor1
+                    tap_action: toggle
+                  - entity: light.interrutor2
+                    tap_action: toggle
+                  - entity: light.kitchen_bench
+                    name: Bench
+                    tap_action: toggle
+                  - entity: light.kitchen_table
+                    name: Kitchen
+                    tap_action: toggle
+                  - entity: light.living_room_center
+                    tap_action: toggle
+                  - entity: light.outside
+                    tap_action: toggle
+                  - entity: light.second_floor_light
+                    name: 2º Floor
+                    tap_action: toggle
+                  - entity: light.secretary
+                    tap_action: toggle
+                  - entity: light.terrace
+                    tap_action: toggle
+                  - entity: light.wc
+                    tap_action: toggle
+                  - entity: light.aliceswitchdoor
+                    tap_action: toggle
+                  - entity: light.laundry
+                    tap_action: toggle
+                  - entity: light.garagecenter
+                    tap_action: toggle
+                  - entity: switch.icepc
+                    tap_action: toggle
+                  - entity: cover.kitchen_left_blinds
+                    tap_action: toggle
+                    name: Kitchen L
+                  - entity: cover.kitchen_right_blinds
+                    tap_action: toggle
+                    name: Kitchen R
+                  - entity: cover.living_room_blinds
+                    tap_action: toggle
+                  - entity: switch.tree
+                    tap_action: toggle
+                  - media_player.mediaroom_19216818611
+                  - media_player.tv
+                  - switch.3d_printer
+                  - binary_sensor.0x00158d000288ce89
+                  - binary_sensor.0x00158d000288ce83
+                  - binary_sensor.0x00158d000288cef3
+                  - switch.wax
+                state_filter:
+                  - 'on'
+                  - 'open'
+                  - 'playing'
+                card: 
+                  type: glance
+                  show_state: false
+              - type: picture-glance
+                title: Garage
+                entity: camera.garage
+                camera_image: camera.garage
+                show_info: true
+                tap_action: dialog
+                entities:
+                   - light.pir_garage_stairs
+            - type: vertical-stack
+              cards:
+                - type: glance
+                  entities:
+                    - device_tracker.iphonebruno
+                    - device_tracker.iphonedeana
+                    - device_tracker.78d6f0039ed3
+                - type: horizontal-stack
+                  cards:
+                  - type: entity-button
+                    entity:  cover.living_room_blinds
+                    name: Living Room
+                  - type: entity-button
+                    name: Kitchen R
+                    entity: cover.kitchen_right_blinds
+                  - type: entity-button
+                    entity: cover.kitchen_left_blinds
+                    name: Kitchen L
+                  - type: entity-button
+                    entity: switch.tree
+                    name: Christmas
+                    tap_action: toggle
+                - type: horizontal-stack
+                  cards:
+                  - type: entity-button
+                    name: Table
+                    tap_action: toggle
+                    entity: light.dinner_table
+                  - type: entity-button
+                    entity:  media_player.tv
+
+                  - type: entity-button
+                    name: AC
+                    entity: climate.air_conditioner
+                  - type: entity-button
+                    name: Off All
+                    icon: mdi:power-standby
+                    tap_action: call-service
+                    entity:  script.1542842262056
+                    service: script.turn_on
+
+                - type: iframe
+                  url: https://superbh.com/dash.html
+                  aspect_ratio: 63%
+  - icon: mdi:chemical-weapon
     id: Bunker_Dashbord
+    panel: true
     cards:
-      - type: picture-glance
-        title: Bunker
-        entity: camera.3d_printer
-        camera_image: camera.3d_printer
-        show_info: true
-        tap_action: dialog
-        entities:
-          - light.bunker
-          - light.secretary
-          - light.bunker_closet
-          - light.bunker_studio
-          - light.bunker_stairs
-          - switch.3d_printer
-      - type: vertical-stack 
+      - type: vertical-stack
         cards:
-          - type: entity-filter
-            entities:
-              - entity: light.bottom
-                tap_action: toggle
-              - entity: light.bunker
-                tap_action: toggle
-              - entity: light.bunker_closet
-                tap_action: toggle
-              - entity: light.bunker_stairs
-                tap_action: toggle
-              - entity: light.bunker_studio
-                tap_action: toggle
-              - entity: light.dinner_table
-                tap_action: toggle
-              - entity: light.front_door
-                tap_action: toggle
-              - entity: light.garage_stairs
-                tap_action: toggle
-              - entity: light.interrutor1
-                tap_action: toggle
-              - entity: light.interrutor2
-                tap_action: toggle
-              - entity: light.kitchen_bench
-                name: Bench
-                tap_action: toggle
-              - entity: light.kitchen_table
-                name: Kitchen
-                tap_action: toggle
-              - entity: light.living_room_center
-                tap_action: toggle
-              - entity: light.outside
-                tap_action: toggle
-              - entity: light.second_floor_light
-                name: 2º Floor
-                tap_action: toggle
-              - entity: light.secretary
-                tap_action: toggle
-              - entity: light.terrace
-                tap_action: toggle
-              - entity: light.wc
-                tap_action: toggle
-              - entity: light.bhonofre_garagestairs_relay_1
-                tap_action: toggle
-              - entity: light.bhonofre_garagestairs_relay_2
-                tap_action: toggle
-              - entity: switch.icepc
-                tap_action: toggle
-              - entity: cover.kitchen_left_blinds
-                tap_action: toggle
-                name: Kitchen L
-              - entity: cover.kitchen_right_blinds
-                tap_action: toggle
-                name: Kitchen R
-              - entity: cover.living_room_blinds
-                tap_action: toggle
-              - media_player.mediaroom_19216818611
-              - media_player.tv
-              - media_player.sound_system
-              - switch.3d_printer
-            state_filter:
-              - 'on'
-              - 'open'
-            card: 
-              type: glance
-              show_state: false
-      - type: horizontal-stack
-        cards:
-          - type: custom:gauge-card
-            title: Temperature
-            entity: sensor.bunker_temperature
-            min: -20
-            max: 35
-          - type: custom:gauge-card
-            title: Humidity
-            entity: sensor.bunker_humidity
-            severity:
-              red: 50
-              green: 0
-        amber: 40
-      - type: iframe
-        url: https://emon.server.eu/dashd.html
-        aspect_ratio: 63%
-  - title: dash
-    icon: mdi:home
+          - type: horizontal-stack
+            cards:
+            - type: picture-glance
+              title: Bunker
+              entity: camera.3d_printer
+              camera_image: camera.3d_printer
+              show_info: true
+              tap_action: dialog
+              entities:
+                - light.bunker
+                - light.secretary
+                - light.bunker_closet
+                - light.bunker_studio
+                - light.bunker_stairs
+                - switch.3d_printer
+            - type: vertical-stack
+              cards:
+                - type: sensor
+                  entity: sensor.bunker_temperature
+                  name: Temperature
+                  
+                - type: sensor
+                  entity: sensor.bunker_humidity
+                  name: Humidity
+            - type: vertical-stack
+              cards:
+                - type: entity-filter
+                  entities:
+                    - entity: light.bottom
+                      tap_action: toggle
+                    - entity: light.bunker
+                      tap_action: toggle
+                    - entity: light.bunker_closet
+                      tap_action: toggle
+                    - entity: light.bunker_stairs
+                      tap_action: toggle
+                    - entity: light.bunker_studio
+                      tap_action: toggle
+                    - entity: light.dinner_table
+                      tap_action: toggle
+                    - entity: light.front_door
+                      tap_action: toggle
+                    - entity: light.garage_stairs_
+                      tap_action: toggle
+                    - entity: light.interrutor1
+                      tap_action: toggle
+                    - entity: light.interrutor2
+                      tap_action: toggle
+                    - entity: light.kitchen_bench
+                      name: Bench
+                      tap_action: toggle
+                    - entity: light.kitchen_table
+                      name: Kitchen
+                      tap_action: toggle
+                    - entity: light.living_room_center
+                      tap_action: toggle
+                    - entity: light.outside
+                      tap_action: toggle
+                    - entity: light.second_floor_light
+                      name: 2º Floor
+                      tap_action: toggle
+                    - entity: light.secretary
+                      tap_action: toggle
+                    - entity: light.terrace
+                      tap_action: toggle
+                    - entity: light.wc
+                      tap_action: toggle
+                    - entity: light.aliceswitchdoor
+                      tap_action: toggle
+                    - entity: light.laundry
+                      tap_action: toggle
+                    - entity: light.garagecenter
+                      tap_action: toggle
+                    - entity: switch.icepc
+                      tap_action: toggle
+                    - entity: cover.kitchen_left_blinds
+                      tap_action: toggle
+                      name: Kitchen L
+                    - entity: cover.kitchen_right_blinds
+                      tap_action: toggle
+                      name: Kitchen R
+                    - entity: cover.living_room_blinds
+                      tap_action: toggle
+                    - media_player.mediaroom_19216818611
+                    - media_player.tv
+                    - entity: switch.3d_printer
+                      tap_action: toggle
+                    - binary_sensor.0x00158d000288ce89
+                    - binary_sensor.0x00158d000288ce83
+                    - binary_sensor.0x00158d000288cef3
+                    - switch.wax
+                  state_filter:
+                    - 'on'
+                    - 'open'
+                    - 'playing'
+                  card: 
+                    type: glance
+                    show_state: false
+                - type: iframe
+                  url: https://superbh.com/dash.html
+                  aspect_ratio: 63%
+  - icon: mdi:thermometer
+    id: Climate
+    panel: true
     cards:
-      - type: entities
-        entities:
-          - scene.kids_sleep
-          - scene.leave_home
-          - scene.living_room_normal
-          - scene.relax
-          - scene.second_floor_normal
-          - scene.all_lights_off
-          - scene.all_blinds_close
-          - device_tracker.iphonebruno
-          - device_tracker.iphonedeana
-      - type: entities
-        title: Power
-        show_header_toggle: true
-        entities:
-          - sensor.emoncms_nodepzemamperagem
-          - sensor.emoncms_nodepzempotencia
-          - sensor.emoncms_nodepzemtemperature
-          - sensor.emoncms_nodepzemvoltagem
-      - type: history-graph
-        title: Electrical Consumption
-        hours_to_show: 24
-        refresh_interval: 0
-        entities:
-          - sensor.emoncms_nodepzempotencia
-      - type: entities
-        title: Phones
-        show_header_toggle: true
-        entities:
-          - sensor.iphone_de_ana_battery_state
-          - sensor.iphone_de_ana_battery_level
-          - sensor.iphone_bruno_battery_state
-          - sensor.iphone_bruno_battery_level
-          - sensor.ipad_de_ana_battery_state
-          - sensor.ipad_de_ana_battery_level
-      - type: entities
-        title: Forecast
-        show_header_toggle: true
-        entities:
-          - sensor.dark_sky_apparent_temperature
-          - sensor.dark_sky_humidity
-          - sensor.dark_sky_icon
-      - type: entities
-        title: Blinds
-        show_header_toggle: true
-        entities:
-          - cover.kitchen_right_blinds
-          - cover.kitchen_left_blinds
-          - cover.living_room_blinds
-      - type: entities
-        title: Living Room Lights
-        show_header_toggle: true
-        entities:
-          - light.living_room_center
-          - light.dinner_table
-      - type: entities
-        title: Kitchen Lights
-        show_header_toggle: true
-        entities:
-          - light.kitchen_bench
-          - light.kitchen_table
-      - type: entities
-        title: All lights
-        show_header_toggle: true
-        entities:
-          - light.bottom
-          - light.bunker
-          - light.bunker_closet
-          - light.bunker_stairs
-          - light.bunker_studio
-          - light.dinner_table
-          - light.front_door
-          - light.garage_stairs
-          - light.interrutor1
-          - light.interrutor2
-          - light.kitchen_bench
-          - light.kitchen_table
-          - light.living_room_center
-          - light.outside
-          - light.second_floor_light
-          - light.secretary
-          - light.terrace
-          - light.wc
-          - light.bhonofre_garagestairs_relay_1
-          - light.bhonofre_garagestairs_relay_2
+      - type: vertical-stack
+        cards:
+          - type: horizontal-stack
+            cards:
+            - type: vertical-stack
+              cards:
+              - type: horizontal-stack
+                cards:
+                  - type: sensor
+                    entity: sensor.alice_temperature
+
+                  - type: sensor
+                    entity: sensor.alice_humidity
+
+              - type: horizontal-stack
+                cards:
+                  - type: sensor
+                    entity:  sensor.street_temperature
+
+                  - type: sensor
+                    entity:  sensor.street_humidity
+
+              - type: horizontal-stack
+                cards:
+                  - type: sensor
+                    entity:  sensor.garage_temperature
+
+                  - type: sensor
+                    entity:  sensor.garage_humidity
+
+            - type: vertical-stack
+              cards:
+                - type: horizontal-stack
+                  cards:
+                    - type: sensor
+                      entity: sensor.main_room_temperature
+
+                    - type: sensor
+                      entity: sensor.main_room_humidity
+
+                - type: horizontal-stack
+                  cards:
+                    - type: sensor
+                      entity: sensor.bunker_temperature
+
+                    - type: sensor
+                      entity: sensor.bunker_humidity
+
   - title: Street
     cards:
       - type: entities
@@ -240,18 +355,12 @@ views:
           - cover.living_room_blinds
           - light.living_room_center
           - light.dinner_table
-          - switch.hdmi_one
-          - switch.hdmi_two
-          - switch.hdmi_three
-          - switch.media_devices
       - type: media-control
         entity: media_player.apple_tv
       - type: media-control
         entity: media_player.mediaroom_19216818611
       - type: media-control
         entity: media_player.tv
-      - type: media-control
-        entity: media_player.sound_system
   - title: Kitchen
     cards:
       - type: entities
@@ -260,12 +369,6 @@ views:
           - cover.kitchen_right_blinds
           - light.kitchen_bench
           - light.kitchen_table
-  - title: Second Floor
-    cards:
-      - type: entities
-        entities:
-          - light.second_floor_light
-          - light.wc
   - title: Bunker
     cards:
       - type: entities
@@ -276,6 +379,8 @@ views:
           - light.bunker_closet
           - light.bunker_stairs
           - light.bunker_studio
+          - binary_sensor.0x00158d000288ce89
+          - binary_sensor.0x00158d000288ce83
       - type: entities
         title: Sensors
         show_header_toggle: true
@@ -320,11 +425,11 @@ views:
       - type: entities
         entities:
           - lock.garage_gate
-          - light.bhonofre_garagestairs_relay_1
-          - light.bhonofre_garagestairs_relay_2
+          - light.garagecenter
+          - light.laundry
           - light.outside
           - light.bottom
-          - light.garage_stairs
+          - light.pir_garage_stairs
       - type: picture-entity
         title: Garage
         entity: camera.garage
@@ -338,3 +443,16 @@ views:
           - sensor.garage_temperature
           - sensor.garage_humidity
           - sensor.garage_lightbulb
+  - title: Alice Room
+    cards:
+      - type: entities
+        entities:
+          - light.aliceswitchdoor
+          - sensor.0x00158d000239ab26_humidity
+          - sensor.0x00158d000239ab26_temperature
+  - title: Rita Studio
+    panel: true
+    cards:
+      - type: entities
+        entities:
+          - switch.wax
